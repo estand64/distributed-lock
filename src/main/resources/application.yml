@@ -1,0 +1,11 @@
+server:
+  port: 12354
+redis:
+  host: ${REDIS.HOST}
+spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES.HOST}:${POSTGRES.PORT:5432}/${POSTGRES.SCHEMA}
+  flyway:
+    locations:
+      - classpath:sql
+    sqlMigrationPrefix: v
