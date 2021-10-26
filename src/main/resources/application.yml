@@ -3,8 +3,11 @@ server:
 redis:
   host: ${REDIS.HOST}
 spring:
+  profiles:
+    active: jdbc
   datasource:
-    url: jdbc:postgresql://${POSTGRES.HOST}:${POSTGRES.PORT:5432}/${POSTGRES.SCHEMA}
+ #   url: jdbc:postgresql://${POSTGRES.HOST}:${POSTGRES.PORT:5432}/${POSTGRES.SCHEMA}
+     url: jdbc:h2:mem:testdb
   flyway:
     locations:
       - classpath:sql

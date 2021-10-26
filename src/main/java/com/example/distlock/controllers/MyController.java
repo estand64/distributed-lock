@@ -1,6 +1,6 @@
 package com.example.distlock.controllers;
 
-import com.example.distlock.services.LockService;
+import com.example.distlock.services.LockServiceImpl;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,20 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/")
 public class MyController {
-    private final LockService lockService;
+    private final LockServiceImpl lockService;
 
-    public MyController(LockService lockService) {
+    public MyController(LockServiceImpl lockService) {
         this.lockService = lockService;
     }
 
-    @PutMapping("/lockRedis")
-    public String lockRedis(){
-        return lockService.redisLock(null);
-    }
-
-    @PutMapping("/lockJdbc")
-    public String lockJdbc(){
-        return lockService.jdbcLock(null);
+    @PutMapping("/lock")
+    public String lock(){
+        return lockService.lock(null);
     }
 
     @PutMapping("/testWaitLock")
