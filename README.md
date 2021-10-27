@@ -5,7 +5,6 @@ How to use the spring integration distributed lock
 Most of the time when designing microservices we create code that can handle multiple instances of our services all running at the same time, however every so often we run into a situation where we only want something processed once. Since our code is running in different pods we can't use `synchronize` and need to use an external method, this is fraught with a few pitfalls when implementing[^1]. Thankfully Spring has done a lot of the hard work and all we need is to provide it a database connection and it will create a distributed lock for us, this example will show the lock with both Redis and JDBC.
 
 <br>
-<br>
 
 ## Package Imports
 
@@ -69,7 +68,6 @@ One more note about running the JDBC version of the distributed lock is that it 
 ```
 
 <br>
-<br>
 
 ## Create Lock Repository
 
@@ -110,7 +108,7 @@ public JdbcLockRegistry jdbcLockRegistry(LockRepository lockRepository){
     return new JdbcLockRegistry(lockRepository);
 }
 ```
-<br>
+
 <br>
 
 ## Injecting the Registries
@@ -134,7 +132,7 @@ public JDBCLockService(JdbcLockRegistry jdbcLockRegistry) {
     super(jdbcLockRegistry);
 }
 ```
-<br>
+
 <br>
 
 ## Obtain a lock from the repository
