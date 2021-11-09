@@ -24,13 +24,13 @@ class JDBCLockServiceTest {
     void testLockSuccess() {
         when(lock.tryLock()).thenReturn(true);
         when(registry.obtain(anyString())).thenReturn(lock);
-        service.lock("test");
+        service.lock();
     }
 
     @Test
     void testLockFails() {
         when(lock.tryLock()).thenReturn(true);
         when(registry.obtain(anyString())).thenReturn(lock);
-        service.lock("test");
+        service.lock();
     }
 }
