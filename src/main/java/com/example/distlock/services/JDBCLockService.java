@@ -28,11 +28,11 @@ public class JDBCLockService implements LockService{
         String returnVal = null;
         if(lock.tryLock()){
             returnVal = "jdbc lock successful";
+            lock.unlock();
         }
         else{
             returnVal = "jdbc lock unsuccessful";
         }
-        lock.unlock();
 
         return returnVal;
     }
@@ -47,20 +47,21 @@ public class JDBCLockService implements LockService{
             System.out.println(String.format("Unable to obtain lock: %s", MY_LOCK_KEY));
         }
         String returnVal = null;
-        try {
-            if (lock.tryLock()) {
+        if (lock.tryLock()) {
+            try {
                 returnVal =  "jdbc lock successful";
+            } catch (Exception e) {
+                // in a production environment this should log and do something else
+                e.printStackTrace();
+            } finally {
+                // always have this in a `finally` block in case anything goes wrong
+                lock.unlock();
             }
-            else{
-                returnVal = "jdbc lock unsuccessful";
-            }
-        } catch (Exception e) {
-            // in a production environment this should log and do something else
-            e.printStackTrace();
-        } finally {
-            // always have this in a `finally` block in case anything goes wrong
-            lock.unlock();
         }
+        else{
+            returnVal = "jdbc lock unsuccessful";
+        }
+
 
         return returnVal;
     }

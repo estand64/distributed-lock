@@ -23,11 +23,11 @@ public class RedisLockService implements LockService{
         String returnVal = null;
         if(lock.tryLock()){
             returnVal = "redis lock successful";
+            lock.unlock();
         }
         else{
             returnVal = "redis lock unsuccessful";
         }
-        lock.unlock();
 
         return returnVal;
     }
